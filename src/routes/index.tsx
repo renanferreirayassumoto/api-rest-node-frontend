@@ -1,11 +1,10 @@
 import { useEffect } from 'react';
-import { Button } from '@mui/material';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { useAppThemeContext, useDrawerContext } from '../shared/contexts';
+import { useDrawerContext } from '../shared/contexts';
+import { Dashboard } from '../pages';
 
 export const AppRoutes = () => {
-	const { toggleDrawerOpen, setDrawerOptions } = useDrawerContext();
-	const { toggleTheme } = useAppThemeContext();
+	const { setDrawerOptions } = useDrawerContext();
 
 	useEffect(() => {
 		setDrawerOptions([
@@ -14,31 +13,12 @@ export const AppRoutes = () => {
 				icon: 'home',
 				path: '/pagina-inicial',
 			},
-			{
-				label: 'Alterar Tema',
-				icon: 'dark_mode',
-				onClick: () => {
-					console.log('Toggle Theme Clicked');
-					toggleTheme();
-				},
-			},
 		]);
-	}, [setDrawerOptions, toggleTheme]);
+	}, [setDrawerOptions]);
 
 	return (
 		<Routes>
-			<Route
-				path='/pagina-inicial'
-				element={
-					<Button
-						variant='contained'
-						color='primary'
-						onClick={toggleDrawerOpen}
-					>
-						Toggle Drawer
-					</Button>
-				}
-			/>
+			<Route path='/pagina-inicial' element={<Dashboard />} />
 			<Route path='*' element={<Navigate to='/pagina-inicial' />} />
 		</Routes>
 	);
