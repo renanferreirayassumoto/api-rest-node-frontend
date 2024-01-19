@@ -32,7 +32,7 @@ const getAll = async (
 		if (data) {
 			return {
 				data,
-				totalCount: headers['x-total-count'] || Environment.LIMITE_DE_LINHAS,
+				totalCount: headers['x-total-count'] || data.length,
 			};
 		}
 		return new Error('Erro ao listar os registros.');
