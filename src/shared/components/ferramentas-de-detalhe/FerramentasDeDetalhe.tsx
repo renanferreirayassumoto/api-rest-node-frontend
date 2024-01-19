@@ -97,7 +97,7 @@ export const FerramentasDeDetalhe: React.FC<IFerramentasDeDetalheProps> = ({
 						startIcon={<Icon>save</Icon>}
 					>
 						<Typography variant='button' noWrap>
-							Salvar e Voltar
+							Salvar e fechar
 						</Typography>
 					</Button>
 				)}
