@@ -7,12 +7,6 @@
       "nomeCompleto": "Renan Ferreira"
     },
     {
-      "id": "4",
-      "email": "maria@hotmail.com",
-      "cidadeId": 2,
-      "nomeCompleto": "Maria Santos"
-    },
-    {
       "id": "5",
       "email": "joao@gmail.com",
       "cidadeId": 3,
@@ -23,12 +17,6 @@
       "email": "laura@gmail.com",
       "cidadeId": 1,
       "nomeCompleto": "Laura Martins"
-    },
-    {
-      "id": "8",
-      "email": "clara@hotmail.com",
-      "cidadeId": 3,
-      "nomeCompleto": "Clara Lima"
     },
     {
       "id": "9",
