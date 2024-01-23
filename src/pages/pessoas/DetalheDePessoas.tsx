@@ -3,7 +3,8 @@ import { LayoutBaseDePagina } from '../../shared/layouts';
 import { FerramentasDeDetalhe } from '../../shared/components';
 import { useEffect, useState } from 'react';
 import { PessoasService } from '../../shared/services/api/pessoas/PessoasService';
-import { LinearProgress } from '@mui/material';
+import { Form } from '@unform/web';
+import { VTextField } from '../../shared/forms';
 
 export const DetalheDePessoas: React.FC = () => {
 	const { id = 'nova' } = useParams<'id'>();
@@ -22,7 +23,6 @@ export const DetalheDePessoas: React.FC = () => {
 					navigate('/pessoas');
 				} else {
 					setNome(result.nomeCompleto);
-					console.log(result);
 				}
 			});
 		}
@@ -60,8 +60,10 @@ export const DetalheDePessoas: React.FC = () => {
 				/>
 			}
 		>
-			{isLoading && <LinearProgress variant='indeterminate' />}
-			<p>DetalheDePessoas {id}</p>
+			<Form onSubmit={(dados) => console.log(dados)} placeholder={''}>
+				<VTextField name='nomeCompleto' />
+				<button type='submit'>Submit</button>
+			</Form>
 		</LayoutBaseDePagina>
 	);
 };
