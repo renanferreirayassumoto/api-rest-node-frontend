@@ -3,9 +3,9 @@ import { FerramentasDaListagem } from '../../shared/components';
 import { LayoutBaseDePagina } from '../../shared/layouts';
 import { useEffect, useMemo, useState } from 'react';
 import {
-	IDetalhePessoa,
-	PessoasService,
-} from '../../shared/services/api/pessoas/PessoasService';
+	IDetalheCidade,
+	CidadesService,
+} from '../../shared/services/api/cidades/CidadesService';
 import { useDebounce } from '../../shared/hooks';
 import {
 	Icon,
@@ -24,12 +24,12 @@ import {
 import { Environment } from '../../shared/environment';
 import { DialogConfirmacao } from './components';
 
-export const ListagemDePessoas: React.FC = () => {
+export const ListagemDeCidades: React.FC = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const { debounce } = useDebounce();
 	const navigate = useNavigate();
 
-	const [rows, setRows] = useState<IDetalhePessoa[]>([]);
+	const [rows, setRows] = useState<IDetalheCidade[]>([]);
 	const [totalCount, setTotalCount] = useState(0);
 	const [isLoading, setIsLoading] = useState(true);
 
@@ -58,7 +58,7 @@ export const ListagemDePessoas: React.FC = () => {
 		setIsLoading(true);
 
 		debounce(() => {
-			PessoasService.getAll(pagina, busca).then((result) => {
+			CidadesService.getAll(pagina, busca).then((result) => {
 				setIsLoading(false);
 
 				if (result instanceof Error) {
@@ -72,7 +72,7 @@ export const ListagemDePessoas: React.FC = () => {
 	}, [busca, pagina, debounce]);
 
 	const handleDelete = () => {
-		PessoasService.deleteById(Number(deleteId)).then((result) => {
+		CidadesService.deleteById(Number(deleteId)).then((result) => {
 			if (result instanceof Error) {
 				alert(result.message);
 			} else {
@@ -80,7 +80,7 @@ export const ListagemDePessoas: React.FC = () => {
 					...oldRows.filter((oldRow) => oldRow.id !== Number(deleteId)),
 				]);
 				setOpenDialog(false);
-				PessoasService.getAll(pagina, busca).then((result) => {
+				CidadesService.getAll(pagina, busca).then((result) => {
 					setIsLoading(false);
 
 					if (result instanceof Error) {
@@ -96,11 +96,11 @@ export const ListagemDePessoas: React.FC = () => {
 
 	return (
 		<LayoutBaseDePagina
-			titulo='Listagem de pessoas'
+			titulo='Listagem de cidades'
 			barraDeFerramentas={
 				<FerramentasDaListagem
 					textoBotaoNovo='Nova'
-					aoClicarEmNovo={() => navigate('/pessoas/detalhe/nova')}
+					aoClicarEmNovo={() => navigate('/cidades/detalhe/nova')}
 					mostrarInputBusca
 					textoDaBusca={busca}
 					aoMudarTextoDeBusca={(texto) =>
@@ -118,8 +118,7 @@ export const ListagemDePessoas: React.FC = () => {
 					<TableHead>
 						<TableRow>
 							<TableCell width={100}>Ações</TableCell>
-							<TableCell>Nome completo</TableCell>
-							<TableCell>Email</TableCell>
+							<TableCell>Nome</TableCell>
 						</TableRow>
 					</TableHead>
 
@@ -135,13 +134,12 @@ export const ListagemDePessoas: React.FC = () => {
 									</IconButton>
 									<IconButton
 										size='small'
-										onClick={() => navigate(`/pessoas/detalhe/${row.id}`)}
+										onClick={() => navigate(`/cidades/detalhe/${row.id}`)}
 									>
 										<Icon>edit</Icon>
 									</IconButton>
 								</TableCell>
-								<TableCell>{row.nomeCompleto}</TableCell>
-								<TableCell>{row.email}</TableCell>
+								<TableCell>{row.nome}</TableCell>
 							</TableRow>
 						))}
 					</TableBody>

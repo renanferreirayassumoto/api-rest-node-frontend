@@ -1,10 +1,16 @@
 {
-  "pessoas": [
-    {
-      "id": "1",
-      "nomeCompleto": "Renan ",
-      "email": "renan@gmail.com",
-      "cidadeId": 2
-    }
-  ]
+	"pessoas": [
+		{
+			"id": "1",
+			"nomeCompleto": "Renan",
+			"email": "renan@gmail.com",
+			"cidadeId": 2
+		}
+	],
+	"cidades": [
+		{
+			"id": "1",
+			"nome": "Campo Grande"
+		}
+	]
 }
