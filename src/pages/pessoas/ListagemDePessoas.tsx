@@ -22,7 +22,7 @@ import {
 	TableRow,
 } from '@mui/material';
 import { Environment } from '../../shared/environment';
-import { DialogConfirmacao } from './components/DialogConfirmacao';
+import { DialogConfirmacao } from './components';
 
 export const ListagemDePessoas: React.FC = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
