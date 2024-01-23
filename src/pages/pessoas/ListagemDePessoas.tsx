@@ -22,6 +22,7 @@ import {
 	TableRow,
 } from '@mui/material';
 import { Environment } from '../../shared/environment';
+import { DialogConfirmacao } from './components/DialogConfirmacao';
 
 export const ListagemDePessoas: React.FC = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
@@ -31,6 +32,19 @@ export const ListagemDePessoas: React.FC = () => {
 	const [rows, setRows] = useState<IDetalhePessoa[]>([]);
 	const [totalCount, setTotalCount] = useState(0);
 	const [isLoading, setIsLoading] = useState(true);
+
+	const [deleteId, setDeleteId] = useState<number | null>(null);
+	const [openDialog, setOpenDialog] = useState(false);
+
+	const handleOpenDialog = (id: number) => {
+		setDeleteId(id);
+		setOpenDialog(true);
+	};
+
+	const handleCloseDialog = () => {
+		setDeleteId(null);
+		setOpenDialog(false);
+	};
 
 	const busca = useMemo(() => {
 		return searchParams.get('busca') || '';
@@ -57,13 +71,25 @@ export const ListagemDePessoas: React.FC = () => {
 		});
 	}, [busca, pagina, debounce]);
 
-	const handleDelete = (id: number) => {
-		PessoasService.deleteById(id).then((result) => {
+	const handleDelete = () => {
+		PessoasService.deleteById(Number(deleteId)).then((result) => {
 			if (result instanceof Error) {
 				alert(result.message);
 			} else {
-				setRows((oldRows) => [...oldRows.filter((oldRow) => oldRow.id !== id)]);
-				alert('Registro apagado com sucesso!');
+				setRows((oldRows) => [
+					...oldRows.filter((oldRow) => oldRow.id !== Number(deleteId)),
+				]);
+				setOpenDialog(false);
+				PessoasService.getAll(pagina, busca).then((result) => {
+					setIsLoading(false);
+
+					if (result instanceof Error) {
+						alert(result.message);
+					} else {
+						setRows(result.data);
+						setTotalCount(result.totalCount);
+					}
+				});
 			}
 		});
 	};
@@ -101,7 +127,10 @@ export const ListagemDePessoas: React.FC = () => {
 						{rows.map((row) => (
 							<TableRow key={row.id}>
 								<TableCell>
-									<IconButton size='small' onClick={() => handleDelete(row.id)}>
+									<IconButton
+										size='small'
+										onClick={() => handleOpenDialog(row.id)}
+									>
 										<Icon>delete</Icon>
 									</IconButton>
 									<IconButton
@@ -148,6 +177,15 @@ export const ListagemDePessoas: React.FC = () => {
 					</TableFooter>
 				</Table>
 			</TableContainer>
+
+			<DialogConfirmacao
+				open={openDialog}
+				onClose={handleCloseDialog}
+				onClick={handleDelete}
+				titulo='Apagar registro'
+			>
+				Tem certeza que deseja apagar o registro?
+			</DialogConfirmacao>
 		</LayoutBaseDePagina>
 	);
 };
