@@ -1,14 +1,23 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { LayoutBaseDePagina } from '../../shared/layouts';
 import { FerramentasDeDetalhe } from '../../shared/components';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { PessoasService } from '../../shared/services/api/pessoas/PessoasService';
 import { Form } from '@unform/web';
 import { VTextField } from '../../shared/forms';
+import { FormHandles } from '@unform/core';
+
+interface IFormData {
+	email: string;
+	nomeCompleto: string;
+	cidadeId: string;
+}
 
 export const DetalheDePessoas: React.FC = () => {
 	const { id = 'nova' } = useParams<'id'>();
 	const navigate = useNavigate();
+
+	const formRef = useRef<FormHandles>(null);
 
 	const [isLoading, setIsLoading] = useState(false);
 	const [nome, setNome] = useState('');
@@ -28,8 +37,8 @@ export const DetalheDePessoas: React.FC = () => {
 		}
 	}, [id, navigate]);
 
-	const handleSave = () => {
-		console.log('Save');
+	const handleSave = (dados: IFormData) => {
+		console.log(dados);
 	};
 
 	const handleDelete = (id: number) => {
@@ -52,17 +61,18 @@ export const DetalheDePessoas: React.FC = () => {
 					mostrarBotaoSalvarEFechar
 					mostrarBotaoApagar={id !== 'nova'}
 					mostrarBotaoNovo={id !== 'nova'}
-					aoClicarEmSalvar={handleSave}
-					aoClicarEmSalvarEFechar={handleSave}
+					aoClicarEmSalvar={() => formRef.current?.submitForm()}
+					aoClicarEmSalvarEFechar={() => formRef.current?.submitForm()}
 					aoClicarEmApagar={() => handleDelete(Number(id))}
 					aoClicarEmNovo={() => navigate('/pessoas/detalhe/nova')}
 					aoClicarEmVoltar={() => navigate('/pessoas')}
 				/>
 			}
 		>
-			<Form onSubmit={(dados) => console.log(dados)} placeholder={''}>
+			<Form ref={formRef} onSubmit={handleSave} placeholder={''}>
 				<VTextField name='nomeCompleto' />
-				<button type='submit'>Submit</button>
+				<VTextField name='email' />
+				<VTextField name='cidadeId' />
 			</Form>
 		</LayoutBaseDePagina>
 	);
