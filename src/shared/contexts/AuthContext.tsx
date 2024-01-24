@@ -39,6 +39,7 @@ export const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
 		try {
 			const result = await AuthService.auth(email, password);
 			if (result instanceof Error) {
+				alert('Email ou senha incorretos');
 				return result.message;
 			} else {
 				localStorage.setItem(
