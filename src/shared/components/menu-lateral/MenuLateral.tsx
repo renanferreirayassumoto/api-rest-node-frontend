@@ -12,7 +12,11 @@ import {
 	useMediaQuery,
 } from '@mui/material';
 import AvatarPhoto from './../../../img/avatar.jpg';
-import { useAppThemeContext, useDrawerContext } from '../../contexts';
+import {
+	useAppThemeContext,
+	useAuthContext,
+	useDrawerContext,
+} from '../../contexts';
 import { useMatch, useNavigate, useResolvedPath } from 'react-router-dom';
 
 interface IMenuLateralProps {
@@ -59,6 +63,7 @@ export const MenuLateral: React.FC<IMenuLateralProps> = ({ children }) => {
 
 	const { isDrawerOpen, toggleDrawerOpen, drawerOptions } = useDrawerContext();
 	const { toggleTheme, themeName } = useAppThemeContext();
+	const { logout } = useAuthContext();
 
 	return (
 		<>
@@ -109,6 +114,13 @@ export const MenuLateral: React.FC<IMenuLateralProps> = ({ children }) => {
 									</Icon>
 								</ListItemIcon>
 								<ListItemText primary='Alternar Tema' />
+							</ListItemButton>
+
+							<ListItemButton onClick={logout}>
+								<ListItemIcon>
+									<Icon>logout</Icon>
+								</ListItemIcon>
+								<ListItemText primary='Sair' />
 							</ListItemButton>
 						</List>
 					</Box>
