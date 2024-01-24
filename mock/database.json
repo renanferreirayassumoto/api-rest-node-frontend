@@ -1,36 +1,39 @@
 {
-  "pessoas": [
-    {
-      "id": "1",
-      "cidadeId": 3,
-      "nomeCompleto": "Renan",
-      "email": "renan@gmail.com"
-    }
-  ],
-  "cidades": [
-    {
-      "id": "1",
-      "nome": "Campo Grande"
-    },
-    {
-      "id": "2",
-      "nome": "São Paulo"
-    },
-    {
-      "id": "3",
-      "nome": "Rio de Janeiro"
-    },
-    {
-      "id": "4",
-      "nome": "Belo Horizonte"
-    },
-    {
-      "id": "5",
-      "nome": "Bahia"
-    },
-    {
-      "id": "6",
-      "nome": "Corumbá"
-    }
-  ]
+	"pessoas": [
+		{
+			"id": "1",
+			"cidadeId": 3,
+			"nomeCompleto": "Renan",
+			"email": "renan@gmail.com"
+		}
+	],
+	"cidades": [
+		{
+			"id": "1",
+			"nome": "Campo Grande"
+		},
+		{
+			"id": "2",
+			"nome": "São Paulo"
+		},
+		{
+			"id": "3",
+			"nome": "Rio de Janeiro"
+		},
+		{
+			"id": "4",
+			"nome": "Belo Horizonte"
+		},
+		{
+			"id": "5",
+			"nome": "Bahia"
+		},
+		{
+			"id": "6",
+			"nome": "Corumbá"
+		}
+	],
+	"auth": {
+		"accessToken": "aaaaaaaa.bbbbbbbbbb.cccccccc"
+	}
 }
