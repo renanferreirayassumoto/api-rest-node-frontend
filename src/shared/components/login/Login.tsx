@@ -11,6 +11,7 @@ import {
 import { useAuthContext } from '../../contexts';
 import { useState } from 'react';
 import * as yup from 'yup';
+import './../../forms/TraducoesYup';
 
 const loginSchema = yup.object().shape({
 	email: yup.string().required().email(),
